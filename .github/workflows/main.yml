@@ -7,6 +7,10 @@ on:
 permissions:
   contents: read
 
+env: # 새로 추가한 부분
+  S3_BUCKET_NAME: ssgwan
+  PROJECT_NAME: ssgwan
+
 jobs:
   build:
     runs-on: ubuntu-latest
