@@ -6,7 +6,6 @@ import com.hh99.nearby.chat.repository.ChatMessageRepository;
 import com.hh99.nearby.entity.Member;
 import com.hh99.nearby.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChatMessageService {
 
-    private final RedisTemplate redisTemplate;
 
     private final ChatMessageRepository chatMessageRepository;
     private final MemberRepository memberRepository;

@@ -6,7 +6,6 @@ import com.hh99.nearby.entity.Challenge;
 import com.hh99.nearby.repository.ChallengeRepository;
 import com.hh99.nearby.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
