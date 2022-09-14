@@ -33,4 +33,4 @@ kakao:
   client:
     id: 06
 jwt:
-  secret: asdfd
+  secret: asdfdd
