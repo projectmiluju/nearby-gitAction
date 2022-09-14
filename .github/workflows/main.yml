@@ -10,6 +10,10 @@ permissions:
 env: # 새로 추가한 부분
   S3_BUCKET_NAME: ssgwan
   PROJECT_NAME: ssgwan
+  AWS_REGION: ap-northeast-2
+  CODEDEPLOY_NAME: ssgwan-deploy
+  CODEDEPLOY_GROUP: ssgwan-code-deploy
+
 
 jobs:
   build:
@@ -42,17 +46,15 @@ jobs:
         shell: bash
         working-directory: ${{ env.working-directory }}
 
-      - name: Upload to S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: aws s3 cp --region ap-northeast-2 --acl private ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
-        working-directory: ${{env.working-directory}}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
-      # CODE Deploy
+      - name: Upload to S3
+        run: aws s3 cp --region ${{ env.AWS_REGION }} ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+
       - name: Code Deploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: aws deploy create-deployment --application-name ssgwan-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ssgwan-code-deploy --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip --region ap-northeast-2
-        working-directory: ${{env.working-directory}}
+        run: aws deploy create-deployment --application-name $CODEDEPLOY_NAME --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name $CODEDEPLOY_GROUP --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
