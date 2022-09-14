@@ -51,8 +51,5 @@ jobs:
 
       # CODE Deploy
       - name: Code Deploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: aws deploy create-deployment --application-name ssgwan-deploy --deployment-group-name ssgwan-code-deploy --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME.zip --region ap-northeast-2
+        run: aws deploy create-deployment --application-name ssgwan-deploy --deployment-group-name ssgwan-code-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME.zip --region ap-northeast-2
         working-directory: ${{env.working-directory}}
