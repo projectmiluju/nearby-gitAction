@@ -33,5 +33,5 @@ kakao:
   client:
     id: 06
 jwt:
-  secret: asd
+  secret: asdd
 #  c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LW5lYXJieS1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3Qtc2VjcmV0LWtleQ==
