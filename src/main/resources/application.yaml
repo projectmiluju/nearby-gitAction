@@ -9,7 +9,7 @@ spring:
           ssl:
             enable: 'true'
           auth: 'true'
-    password: jwy5482@
+    password: ${SPRING_MAIL_PASSWORD}
   freemarker:
     cache: 'false'
   h2:
