@@ -9,7 +9,7 @@ spring:
           ssl:
             enable: 'true'
           auth: 'true'
-    password: 1234
+    password: asd
   freemarker:
     cache: 'false'
   h2:
